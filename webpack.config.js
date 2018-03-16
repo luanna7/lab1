@@ -13,7 +13,11 @@ module.exports = {
         },
         {
             test: /\.css$/,
-            loaders: ["style-loader", "css-loder"]
+            loaders: ["style-loader", "css-loader"]
+        },
+        {
+            test: /\.(eot|svg|ttf|woff|woff2)$/,
+            loader: 'file-loader'
         }
     ]
   },
@@ -23,6 +27,7 @@ module.exports = {
   },
   devServer: {
       contentBase: parentDir,
-      historyApiFallback: true
+      historyApiFallback: true,
+      hot: true
   }
 }
