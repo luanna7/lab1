@@ -2,7 +2,8 @@ var webpack = require('webpack');
 var path = require('path');
 
 var parentDir = path.join(__dirname, '/public');
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
   entry: path.join(parentDir, './src/index.js'),
   module: {
@@ -29,5 +30,14 @@ module.exports = {
       contentBase: parentDir,
       historyApiFallback: true,
       hot: true
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new UglifyJsPlugin(),
+    new BundleAnalyzerPlugin()
+  ]
 }

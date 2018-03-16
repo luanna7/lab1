@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import { Button } from 'element-react';
 import axios from 'axios';
-import { Input } from 'element-react';
 
 export default class App extends Component {
     handleInput() {
@@ -23,9 +21,7 @@ export default class App extends Component {
     render () {
       return (
         <div>
-          <Input onChange={this.handleInput} placeholder="first name" />
-          <Input onChange={this.handleInput} placeholder="last name" />
-          <Button onClick={this.handleSubmit}>Submit</Button>
+          testestest!!!!!!
         </div>
       )
     }
