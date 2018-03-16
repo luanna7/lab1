@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Button } from 'element-react';
 
 export default class App extends Component {
   handleInput() {
@@ -23,7 +24,8 @@ export default class App extends Component {
   render () {
     return (
       <div>
-        <button onClick={this.handleSubmit} />
+        <button onClick={this.handleSubmit}>Test</button>
+        <Button>Test!!!!!</Button>
       </div>
     );
   }

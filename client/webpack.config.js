@@ -72,7 +72,15 @@ module.exports = {
         test: /\.jsx?$/,
         loaders: ['babel'],
         include: path.join(__dirname, 'scripts')
-      }
+      },
+      {
+       test: /\.css$/,
+       loaders: ['style-loader', 'css-loader']
+     },
+     {
+       test: /\.(ttf|eot|svg|woff|woff2)(\?.+)?$/,
+       loader: 'file-loader?name=[hash:12].[ext]'
+     }
     ]
   }
 };
