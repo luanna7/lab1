@@ -1,7 +1,7 @@
 var express = require('express');
 // var crypto = require('crypto');
 var router = express.Router();
-var sql = require('../mysql.js');
+// var sql = require('../mysql.js');
 
 // const createUserQuery = (name, email, password) => `
 // INSERT INTO USERS(name, email, password)
