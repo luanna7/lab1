@@ -9,8 +9,8 @@ VALUES (${name}, ${email}, ${password})
 `;
 
 router.post("/users/signup", function(req, res, next) {
-  console.log(req.body);
-  const { name, password, email } = req.body;
+  // console.log(req.body);
+  // const { name, password, email } = req.body;
   // const encodedPassword = encodePassword(password)
   // sql.query(createUserQuery(name, email, encodedPassword), function(err, result) {
   //   if (err) throw err;
@@ -19,6 +19,10 @@ router.post("/users/signup", function(req, res, next) {
   //     email,
   //   }
   // })
+  console.log(req.body);
+  sql.query(`SELECT * FROM USERS WHERE NAME = 'test'`, function(req, res, next){
+    console.log(res);
+  });
 });
 
 module.exports = router;

@@ -11,8 +11,9 @@ export default class App extends Component {
 
   handleSubmit() {
     axios.post('http://localhost:3000/users/signup', {
-      firstName: 'Fred',
-      lastName: 'Flintstone'
+      name: 'testie',
+      email: 'email',
+      password: '1234567'
     })
     .then(function (response) {
       console.log(response);
