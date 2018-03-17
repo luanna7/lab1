@@ -1,33 +1,12 @@
-
-
 import React, {Component} from 'react';
 import axios from 'axios';
-import { Button } from 'element-react';
+import { Button, Input } from 'element-react';
+import { connect } from 'react-redux';
+import Signup from './containers/Signup';
 
-export default class App extends Component {
-  handleInput() {
-    console.log(true);
-  }
-
-  handleSubmit() {
-    axios.post('http://localhost:3000/users/signup', {
-      name: 'testie',
-      email: 'email',
-      password: '1234567'
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+class App extends Component {
   render () {
-    return (
-      <div>
-        <button onClick={this.handleSubmit}>Test</button>
-        <Button>Test!!!!!</Button>
-      </div>
-    );
+    return <Signup />
   }
 }
+export default App;
