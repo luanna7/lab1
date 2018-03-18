@@ -17,6 +17,7 @@ router.post('/users/signup', function(req, res) {
     res
   );
 });
+
 // name, email, password, skills, aboutMe, phone, profileImage
 router.post('/users/update', function(req, res) {
   console.log('update user');

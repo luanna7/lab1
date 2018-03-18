@@ -152,6 +152,7 @@ exports.addUser = function(
   sql.getConnection(function(err, connection) {
     if (err) {
       console.log('db connection failed');
+      res.status(500).send('db connection failed');
       return;
     } else {
       console.log('db connected');
@@ -162,7 +163,10 @@ exports.addUser = function(
           connection.release();
           if (!err) {
             console.log('inserted');
-            res.status(201);
+            res.status(201).send('user inserted');
+          } else {
+            res.status(500).send('insert failed');
+            return;
           }
         }
       );
