@@ -84,6 +84,13 @@ const selectProject = 'select * from ' + projects + ' where employer = ?';
 const selectAllProject = 'select * from ' + projects;
 const selectBid = 'select * from ' + bids + ' where Id = ?';
 const selectBidByUser = 'select * from ' + bids + ' where freelancer = ?';
+const selectBidProject =
+  'select * from ' +
+  bids +
+  ' join ' +
+  projects +
+  ' on bids.project = PROJECTS.Id' +
+  ' where freelancer = ?';
 
 const insertUser =
   'INSERT INTO ' +
@@ -191,7 +198,7 @@ exports.getProject = function(id, res) {
 };
 
 exports.getBidByUser = function(user, res) {
-  console.log('Get Project');
+  console.log('Get Bid');
   sql.getConnection(function(err, connection) {
     console.log('Get Connection');
     if (err) {
@@ -207,6 +214,34 @@ exports.getBidByUser = function(user, res) {
           res.status(200).send(results);
         } else {
           res.status(500).send('Get bid failed');
+          return;
+        }
+      });
+      connection.on('error', function(err) {
+        res.status(400).send('Error on database operation');
+        return;
+      });
+    }
+  });
+};
+
+exports.getBidProject = function(user, res) {
+  console.log('Get Bid Project');
+  sql.getConnection(function(err, connection) {
+    console.log('Get Connection');
+    if (err) {
+      console.log('Database connection failed');
+      res.status(500).send('Database connection failed');
+      return;
+    } else {
+      console.log('Database connected');
+      connection.query(selectBidProject, [user], function(err, results) {
+        connection.release();
+        if (!err) {
+          console.log(results);
+          res.status(200).send(results);
+        } else {
+          res.status(500).send('Get bid project failed');
           return;
         }
       });

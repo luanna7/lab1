@@ -65,7 +65,7 @@ router.get('/projects/:employer', function(req, res) {
 
 router.get('/bids/:user', function(req, res) {
   console.log(req.params);
-  sql.getBidByUser(req.params.user, res);
+  sql.getBidProject(req.params.user, res);
 });
 
 router.get('/projects', function(req, res) {
@@ -86,7 +86,7 @@ router.post('/bids/create', function(req, res) {
 
 router.post('/bids', function(req, res) {
   console.log('Get bid');
-  sql.getBid(req.body.id, res);
+  sql.getUser(req.body.id, res);
 });
 
 router.post('/bids/average', function(req, res) {
