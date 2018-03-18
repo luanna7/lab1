@@ -52,27 +52,27 @@ var sql = mysql.createPool({
 
 sql.getConnection(function(err, connection) {
   if (err) throw err;
-  console.log("Connected!");
-  connection.query("CREATE DATABASE IF NOT EXISTS mydb", function (err, result) {
+  console.log('Connected!');
+  connection.query('CREATE DATABASE IF NOT EXISTS mydb', function(err, result) {
     if (err) throw err;
-    console.log("Database created");
+    console.log('Database created');
   });
-  connection.query(createUsersTableQuery, function (err, result) {
+  connection.query(createUsersTableQuery, function(err, result) {
     if (err) throw err;
-    console.log("users table created");
+    console.log('users table created');
   });
-  connection.query(createProjectsTableQuery, function (err, result) {
+  connection.query(createProjectsTableQuery, function(err, result) {
     if (err) throw err;
-    console.log("projects table created");
+    console.log('projects table created');
   });
-  connection.query(createBidsTableQuery, function (err, result) {
+  connection.query(createBidsTableQuery, function(err, result) {
     if (err) throw err;
-   console.log("bids table created");
- });
- connection.query(createBidsTableQuery, function (err, result) {
-   if (err) throw err;
-  console.log("bids table created");
-})
+    console.log('bids table created');
+  });
+  connection.query(createBidsTableQuery, function(err, result) {
+    if (err) throw err;
+    console.log('bids table created');
+  });
 });
 
 const users = 'USERS';
@@ -83,6 +83,7 @@ const selectUser = 'select * from ' + users + ' where email = ?';
 const selectProject = 'select * from ' + projects + ' where employer = ?';
 const selectAllProject = 'select * from ' + projects;
 const selectBid = 'select * from ' + bids + ' where Id = ?';
+const selectBidByUser = 'select * from ' + bids + ' where freelancer = ?';
 
 const insertUser =
   'INSERT INTO ' +
@@ -178,6 +179,34 @@ exports.getProject = function(id, res) {
           res.status(200).send(results);
         } else {
           res.status(500).send('Get user failed');
+          return;
+        }
+      });
+      connection.on('error', function(err) {
+        res.status(400).send('Error on database operation');
+        return;
+      });
+    }
+  });
+};
+
+exports.getBidByUser = function(user, res) {
+  console.log('Get Project');
+  sql.getConnection(function(err, connection) {
+    console.log('Get Connection');
+    if (err) {
+      console.log('Database connection failed');
+      res.status(500).send('Database connection failed');
+      return;
+    } else {
+      console.log('Database connected');
+      connection.query(selectBidByUser, [user], function(err, results) {
+        connection.release();
+        if (!err) {
+          console.log(results);
+          res.status(200).send(results);
+        } else {
+          res.status(500).send('Get bid failed');
           return;
         }
       });

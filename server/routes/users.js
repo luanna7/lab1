@@ -63,6 +63,11 @@ router.get('/projects/:employer', function(req, res) {
   sql.getProject(req.params.employer, res);
 });
 
+router.get('/bids/:user', function(req, res) {
+  console.log(req.params);
+  sql.getBidByUser(req.params.user, res);
+});
+
 router.get('/projects', function(req, res) {
   sql.getAllProjects(res);
 });
