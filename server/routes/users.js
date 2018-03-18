@@ -6,7 +6,6 @@ var sql = require('../mysql.js');
 // Signup: name, email, password, skills, aboutMe, phone, profileImage
 router.post('/users/signup', function(req, res) {
   console.log('Signup user');
-  console.log(req.body);
   sql.addUser(
     req.body.name,
     req.body.email,
@@ -40,9 +39,9 @@ router.post('/users/update', function(req, res) {
   );
 });
 
-router.post('/users', function(req, res) {
-  console.log(req.body.email);
-  sql.getUser(req.body.email, res);
+router.get('/users/:email', function(req, res) {
+  console.log(req.params.email);
+  sql.getUser(req.params.email, res);
 });
 
 // title, description, skillsRequired, budgetRange, employer, completeDate, bidId
@@ -60,9 +59,9 @@ router.post('/projects/create', function(req, res) {
   );
 });
 
-router.post('/projects', function(req, res) {
-  console.log('Get project');
-  sql.getUser(req.body.employer, res);
+router.get('/projects/:employer', function(req, res) {
+  console.log(req.params);
+  sql.getProject(req.params.employer, res);
 });
 
 // freelancer, price, created, project
