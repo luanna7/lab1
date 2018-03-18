@@ -81,6 +81,7 @@ const bids = 'bids';
 
 const selectUser = 'select * from ' + users + ' where email = ?';
 const selectProject = 'select * from ' + projects + ' where employer = ?';
+const selectAllProject = 'select * from ' + projects;
 const selectBid = 'select * from ' + bids + ' where Id = ?';
 
 const insertUser =
@@ -173,10 +174,38 @@ exports.getProject = function(id, res) {
       connection.query(selectProject, [id], function(err, results) {
         connection.release();
         if (!err) {
-          console.log(results[0]);
-          res.status(200).send(results[0]);
+          console.log(results);
+          res.status(200).send(results);
         } else {
           res.status(500).send('Get user failed');
+          return;
+        }
+      });
+      connection.on('error', function(err) {
+        res.status(400).send('Error on database operation');
+        return;
+      });
+    }
+  });
+};
+
+exports.getAllProjects = function(res) {
+  console.log('Get User');
+  sql.getConnection(function(err, connection) {
+    console.log('Get Connection');
+    if (err) {
+      console.log('Database connection failed' + err);
+      res.status(500).send('Database connection failed');
+      return;
+    } else {
+      console.log('Database connected');
+      connection.query(selectAllProject, function(err, results) {
+        connection.release();
+        if (!err) {
+          console.log(results);
+          res.status(200).send(results);
+        } else {
+          res.status(500).send('Get all projects failed');
           return;
         }
       });
@@ -265,7 +294,7 @@ exports.addUser = function(
         [name, email, password, skills, aboutMe, phone, profileImage],
         function(err, results) {
           connection.release();
-					if (!err) {
+          if (!err) {
             console.log('User inserted');
             res.status(201).send('User inserted');
           } else {
