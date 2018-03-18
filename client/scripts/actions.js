@@ -31,7 +31,7 @@ export const editProfile = (form) => (dispatch) => {
     if (res.status === 202) {
       dispatch({
         type: SET_USER,
-        payload: data
+        payload: updateForm
       });
     }
   })
@@ -40,7 +40,6 @@ export const editProfile = (form) => (dispatch) => {
 export const postProject = (form) => (dispatch) => {
   const requestForm = {
     ...form,
-    employer: '',
     completeDate: '',
     bidId: '',
   };

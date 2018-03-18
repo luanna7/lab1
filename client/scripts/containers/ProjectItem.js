@@ -19,7 +19,7 @@ class ProjectItem extends Component {
 
   render () {
     const { bidPrice } = this.state;
-    const { onButtonClick, name, project } = this.props;
+    const { onButtonClick, email, project } = this.props;
     return (
       <div className='project-item'>
         <p>Title: {project.title}</p>
@@ -29,20 +29,20 @@ class ProjectItem extends Component {
         <p>Budget Range: {project.budgetRange}</p>
         <h4>Bid on this project?</h4>
         <Input placeholder="your bid price" prepend="bid price" onChange={(e) => this.onInputChange(e)} value={bidPrice}></Input>
-        <Button onClick={() => onButtonClick(name, bidPrice, project.Id)}>Bid</Button>
+        <Button onClick={() => onButtonClick(email, bidPrice, project.Id)}>Bid</Button>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  name: state.name,
+  email: state.email,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onButtonClick: (name, bidPrice, id) => {
+  onButtonClick: (email, bidPrice, id) => {
     const requestBody = {
-      freelancer: name,
+      freelancer: email,
       price: bidPrice,
       project: id,
       created: new Date()
@@ -51,4 +51,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export default connect(null, mapDispatchToProps)(ProjectItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectItem);
