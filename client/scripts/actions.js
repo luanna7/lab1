@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SET_USER, SET_OPEN_PROJECTS, SET_MY_POST, SET_MY_BID } from './types';
+import { SET_USER, SET_OPEN_PROJECTS, SET_MY_POST, SET_MY_BID, LOGOUT } from './types';
 
 export const signin = (form) => (dispatch) => {
   return axios.post('http://localhost:3000/users/signin', form).then((res) => {
@@ -73,12 +73,18 @@ export const getMyPosts = (name) => (dispatch) => {
   })
 }
 
-export const getMyBids = (name) => (dispatch) => {
-  return axios.get(`http://localhost:3000/bids/${name}`).then((res) => {
+export const getMyBids = (email) => (dispatch) => {
+  return axios.get(`http://localhost:3000/bids/${email}`).then((res) => {
     const data = res.data;
     dispatch({
       type: SET_MY_BID,
       payload: {myBids: data}
     });
   })
+}
+
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: LOGOUT
+  });
 }

@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { Button, Input } from 'element-react';
 import { connect } from 'react-redux';
-import ProjectItem from './ProjectItem';
 import { getMyPosts } from '../actions';
 
-class ProjectList extends Component {
+class MyPosts extends Component {
   componentDidMount() {
     const { dispatch, name } = this.props;
     dispatch(getMyPosts(name));
@@ -31,7 +30,7 @@ class ProjectList extends Component {
             )
           }
         </div>
-        : <div>loading</div>
+        : <div>No Posts available</div>
       }
       </div>
     );
@@ -47,4 +46,4 @@ const mapDispatchToProps = (dispatch) => ({
   dispatch,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);
+export default connect(mapStateToProps, mapDispatchToProps)(MyPosts);

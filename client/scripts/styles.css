@@ -28,3 +28,18 @@ li a:hover {
   margin: 20px 0;
   padding: 20px;
 }
+
+.logout {
+  float: none;
+}
+
+.logout-btn {
+  float: right;
+  padding: 5px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px;
+}

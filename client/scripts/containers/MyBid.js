@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { Button, Input } from 'element-react';
 import { connect } from 'react-redux';
-import ProjectItem from './ProjectItem';
 import { getMyBids } from '../actions';
 
-class ProjectList extends Component {
+class MyBids extends Component {
   componentDidMount() {
-    const { dispatch, name } = this.props;
-    dispatch(getMyBids(name));
+    const { dispatch, email } = this.props;
+    dispatch(getMyBids(email));
   }
 
   render(){
@@ -18,7 +17,7 @@ class ProjectList extends Component {
       {
         myBids.length ?
         <div>
-          <h2>My Posts</h2>
+          <h2>My Bids</h2>
           {
             myBids.map((project, key) =>
               <div key={key} className='project-item'>
@@ -31,7 +30,7 @@ class ProjectList extends Component {
             )
           }
         </div>
-        : <div>loading</div>
+        : <div>No Bids Available</div>
       }
       </div>
     );
@@ -40,11 +39,11 @@ class ProjectList extends Component {
 
 const mapStateToProps = (state) => ({
   myBids: state.myBids,
-  name: state.name
+  email: state.email
 });
 
 const mapDispatchToProps = (dispatch) => ({
   dispatch,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);
+export default connect(mapStateToProps, mapDispatchToProps)(MyBids);

@@ -30,8 +30,8 @@ class Signup extends Component {
     return (
       <div>
         <Input placeholder="name" prepend="name" onChange={(e) => this.onInputChange('name', e)} value={name}></Input>
-        <Input placeholder="password" prepend="password" onChange={(e) => this.onInputChange('password', e)} value={password}></Input>
-        <Input placeholder="email" prepend="email" onChange={(e) => this.onInputChange('email', e)} value={email}></Input>
+        <Input placeholder="password" prepend="password" type="password" onChange={(e) => this.onInputChange('password', e)} value={password}></Input>
+        <Input placeholder="email" prepend="email" type="email" onChange={(e) => this.onInputChange('email', e)} value={email}></Input>
         <Button onClick={() => onButtonClick(form)}>Sign up</Button>
       </div>
     )

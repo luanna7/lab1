@@ -3,6 +3,7 @@ import {
   SET_OPEN_PROJECTS,
   SET_MY_POST,
   SET_MY_BID,
+  LOGOUT
 } from './types';
 
 export const initialState = {
@@ -40,6 +41,8 @@ export default function(state = initialState, action) {
         ...state,
         ...action.payload
       };
+    case LOGOUT:
+      return initialState;
     default:
       return state;
   }

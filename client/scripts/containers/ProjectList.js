@@ -22,7 +22,7 @@ class ProjectList extends Component {
             projects.map((project, key) => <ProjectItem project={project} key={key} />)
           }
         </div>
-        : <div>loading</div>
+        : <div>No Projects available</div>
       }
       </div>
     );

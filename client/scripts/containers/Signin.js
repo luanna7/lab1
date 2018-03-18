@@ -28,8 +28,8 @@ class Signin extends Component {
     const form = this.state.form;
     return (
       <div>
-        <Input placeholder="email" prepend="email" onChange={(e) => this.onInputChange('email', e)} value={email}></Input>
-        <Input placeholder="password" prepend="password" onChange={(e) => this.onInputChange('password', e)} value={password}></Input>
+        <Input placeholder="email" prepend="email" type="email" onChange={(e) => this.onInputChange('email', e)} value={email}></Input>
+        <Input placeholder="password" prepend="password" type="password" onChange={(e) => this.onInputChange('password', e)} value={password}></Input>
         <Button onClick={() => onButtonClick(form)}>Sign in</Button>
       </div>
     )
