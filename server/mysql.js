@@ -23,15 +23,15 @@ const selectBid = 'select * from ' + bids + ' where Id = ?';
 const insertUser =
   'INSERT INTO ' +
   users +
-  ' (name, email, password, skills, aboutMe, phone, profileImage) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  ' (`name`, `email`, `password`, `skills`, `aboutMe`, `phone`, `profileImage`) VALUES (?, ?, ?, ?, ?, ?, ?)';
 const insertProject =
   'INSERT INTO ' +
   projects +
-  ' (title, description, skillsRequired, budgetRange, employer, completeDate, bidId) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  ' (`title`, `description`, `skillsRequired`, `budgetRange`, `employer`, `completeDate`, `bidId`) VALUES (?, ?, ?, ?, ?, ?, ?)';
 const insertBid =
   'INSERT INTO ' +
   bids +
-  ' (freelancer, price, created, project) VALUES (?, ?, ?, ?)';
+  ' (`freelancer`, `price`, `created`, `project`) VALUES (?, ?, ?, ?)';
 
 const updateUser =
   'UPDATE ' +
