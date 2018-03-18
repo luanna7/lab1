@@ -49,7 +49,7 @@ const mapStateToProps = (state) => ({
   name: state.name,
   phone: state.phone,
   aboutMe: state.aboutMe,
-  skils: state.skills
+  skills: state.skills
 });
 
 const mapDispatchToProps = (dispatch) => ({
