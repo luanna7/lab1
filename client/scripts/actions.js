@@ -40,7 +40,6 @@ export const editProfile = (form) => (dispatch) => {
 export const postProject = (form) => (dispatch) => {
   const requestForm = {
     ...form,
-    employer: '',
     completeDate: '',
     bidId: '',
   };

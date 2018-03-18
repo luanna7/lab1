@@ -27,7 +27,7 @@ class PostProject extends Component {
   render(){
     const { title, description, skills, budgetRange } = this.state.form;
     const { form } = this.state;
-    const { onButtonClick } = this.props;
+    const { onButtonClick, name } = this.props;
     return (
       <div>
         <h3>Post a Project</h3>
@@ -37,14 +37,24 @@ class PostProject extends Component {
         <p>skills required</p>
         <div> <Input type="textarea" autosize={true} placeholder={skills} onChange={(e) => this.onInputChange('skills', e)} value={skills}/></div>
         <div><Input placeholder="budgetRange" prepend="budgetRange" onChange={(e) => this.onInputChange('budgetRange', e)} value={budgetRange}/></div>
-        <Button onClick={() => onButtonClick(form)}>Post Poject</Button>
+        <Button onClick={() => onButtonClick(form, name)}>Post Poject</Button>
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => ({
+  name: state.name
+})
+
 const mapDispatchToProps = (dispatch) => ({
-  onButtonClick: (form) => dispatch(postProject(form))
+  onButtonClick: (form, name) => {
+    const requestBody = {
+      ...form,
+      employer: name
+    };
+    dispatch(postProject(requestBody));
+  }
 });
 
-export default connect(null, mapDispatchToProps)(PostProject);
+export default connect(mapStateToProps, mapDispatchToProps)(PostProject);
