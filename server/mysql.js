@@ -100,7 +100,7 @@ const insertBid =
 const updateUser =
   'UPDATE ' +
   users +
-  ' SET name=?, password=?, skills=?, aboutMe=?, phone=?, profileImage=? WHERE email=?';
+  ' SET name=?, skills=?, aboutMe=?, phone=?, profileImage=? WHERE email=?';
 
 const calculateAvgBid =
   'SELECT AVG(price) AS avgbid FROM ' + bids + ' WHERE project=?';
@@ -391,7 +391,6 @@ exports.addBid = function(freelancer, price, created, project, res) {
 exports.updateUser = function(
   name,
   email,
-  password,
   skills,
   aboutMe,
   phone,
@@ -407,7 +406,7 @@ exports.updateUser = function(
       console.log('Database connected');
       connection.query(
         updateUser,
-        [name, password, skills, aboutMe, phone, profileImage, email],
+        [name, skills, aboutMe, phone, profileImage, email],
         function(err, results) {
           connection.release();
           if (!err) {
