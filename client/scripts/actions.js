@@ -1,10 +1,8 @@
 import axios from 'axios';
-import { SET_USER, SET_OPEN_PROJECTS } from './types';
+import { SET_USER, SET_OPEN_PROJECTS, SET_MY_POST, SET_MY_BID } from './types';
 
 export const signin = (form) => (dispatch) => {
   return axios.post('http://localhost:3000/users/signin', form).then((res) => {
-    console.log(form);
-    console.log(res);
     if (res.status === 200) {
       dispatch({
         type: SET_USER,
@@ -15,7 +13,6 @@ export const signin = (form) => (dispatch) => {
 }
 
 export const signup = (form) => (dispatch) => {
-  console.log(form);
   return axios.post('http://localhost:3000/users/signup', form).then((res) => {
     if (res.status === 201) {
       dispatch({
@@ -29,9 +26,8 @@ export const signup = (form) => (dispatch) => {
 export const editProfile = (form) => (dispatch) => {
   const updateForm = {
     ...form,
-    name: 'rockcs'
   }
-  return axios.post('http://localhost:3000/users/update', requestBody).then((res) => {
+  return axios.post('http://localhost:3000/users/update', form).then((res) => {
     if (res.status === 202) {
       dispatch({
         type: SET_USER,
@@ -54,13 +50,35 @@ export const postProject = (form) => (dispatch) => {
 export const getOpenProjects = () => (dispatch) => {
   return axios.get('http://localhost:3000/projects').then((res) => {
     const data = res.data;
+    console.log(data);
     dispatch({
       type: SET_OPEN_PROJECTS,
-      payload: data
+      payload: {openProjects: data}
     })
   })
 }
 
-export const createBid = (freelancer) => dispatch => {
-  return axios.post('http://localhost:3000/bids/create', { freelancer });
+export const createBid = (requestBody) => (dispatch) => {
+  return axios.post('http://localhost:3000/bids/create', requestBody);
+}
+
+export const getMyPosts = (name) => (dispatch) => {
+  return axios.get(`http://localhost:3000/projects/${name}`).then((res) => {
+    const data = res.data;
+    console.log(data);
+    dispatch({
+      type: SET_MY_POST,
+      payload: {myPosts: data}
+    });
+  })
+}
+
+export const getMyBids = (name) => (dispatch) => {
+  return axios.get(`http://localhost:3000/bids/${name}`).then((res) => {
+    const data = res.data;
+    dispatch({
+      type: SET_MY_BID,
+      payload: {myBids: data}
+    });
+  })
 }

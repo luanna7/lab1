@@ -86,7 +86,7 @@ router.post('/bids/create', function(req, res) {
 
 router.post('/bids', function(req, res) {
   console.log('Get bid');
-  sql.getUser(req.body.id, res);
+  sql.getBid(req.body.id, res);
 });
 
 router.post('/bids/average', function(req, res) {

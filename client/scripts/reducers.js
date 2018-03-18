@@ -1,6 +1,8 @@
 import {
   SET_USER,
   SET_OPEN_PROJECTS,
+  SET_MY_POST,
+  SET_MY_BID,
 } from './types';
 
 export const initialState = {
@@ -10,7 +12,9 @@ export const initialState = {
   skills: '',
   aboutMe: '',
   phone: '',
-  openProjects: []
+  openProjects: [],
+  myPosts: [],
+  myBids: [],
 };
 
 export default function(state = initialState, action) {
@@ -20,12 +24,22 @@ export default function(state = initialState, action) {
       return {
         ...state,
         ...action.payload
-      }
+      };
     case SET_OPEN_PROJECTS:
       return {
         ...state,
         ...action.payload
-      }
+      };
+    case SET_MY_POST:
+      return {
+        ...state,
+        ...action.payload
+      };
+    case SET_MY_BID:
+      return {
+        ...state,
+        ...action.payload
+      };
     default:
       return state;
   }

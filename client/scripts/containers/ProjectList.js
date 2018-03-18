@@ -2,29 +2,35 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { Button, Input } from 'element-react';
 import { connect } from 'react-redux';
+import ProjectItem from './ProjectItem';
 import { getOpenProjects, createBid } from '../actions';
 
 class ProjectList extends Component {
-  ComponentDidMount() {
-    this.props.dispatch(getOpenProjects);
+  componentDidMount() {
+    this.props.dispatch(getOpenProjects());
   }
 
   render(){
-    const { projects, onButtonClick, name } = this.props;
+    const { projects } = this.props;
     return (
-      <div>Project List</div>
+      <div>
+      {
+        projects.length ?
+        <div>
+          <h2>Opening Projects</h2>
+          {
+            projects.map((project, key) => <ProjectItem project={project} key={key} />)
+          }
+        </div>
+        : <div>loading</div>
+      }
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
   projects: state.openProjects,
-  customer: state.name,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatch,
-  onButtonClick: (freelancer) => dispatch(createBid(freelancer)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);
+export default connect(mapStateToProps)(ProjectList);
