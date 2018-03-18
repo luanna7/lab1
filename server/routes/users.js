@@ -64,6 +64,10 @@ router.get('/projects/:employer', function(req, res) {
   sql.getProject(req.params.employer, res);
 });
 
+router.get('/projects', function(req, res) {
+  sql.getAllProjects(res);
+});
+
 // freelancer, price, created, project
 router.post('/bids/create', function(req, res) {
   console.log('Create bid');
