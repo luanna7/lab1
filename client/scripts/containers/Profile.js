@@ -31,7 +31,7 @@ class Profile extends Component {
     const { onButtonClick } = this.props;
     return (
       <div>
-        <p>Welcome, {name}</p>
+        <h2>Welcome, {name}</h2>
         <div><Input placeholder={email} prepend="Email" onChange={(e) => this.onInputChange('email', e)} value={email}/></div>
         <div><Input placeholder={phone} prepend="Phone Number" onChange={(e) => this.onInputChange('phone', e)} value={phone} /></div>
         <p>About Me</p>
