@@ -3,9 +3,9 @@ var express = require('express');
 var router = express.Router();
 var sql = require('../mysql.js');
 
-// name, email, password, skills, aboutMe, phone, profileImage
+// Signup: name, email, password, skills, aboutMe, phone, profileImage
 router.post('/users/signup', function(req, res) {
-  console.log('Adding user');
+  console.log('Signup user');
   sql.addUser(
     req.body.name,
     req.body.email,
@@ -18,9 +18,15 @@ router.post('/users/signup', function(req, res) {
   );
 });
 
-// name, email, password, skills, aboutMe, phone, profileImage
+// Signin: email, password
+router.post('/users/signin', function(req, res) {
+  console.log('Signin user');
+  sql.signIn(req.body.email, req.body.password, res);
+});
+
+// Update User: name, email, password, skills, aboutMe, phone, profileImage
 router.post('/users/update', function(req, res) {
-  console.log('update user');
+  console.log('Update user');
   sql.updateUser(
     req.body.name,
     req.body.email,
@@ -40,7 +46,7 @@ router.post('/users', function(req, res) {
 
 // title, description, skillsRequired, budgetRange, employer, completeDate, bidId
 router.post('/projects/create', function(req, res) {
-  console.log('Adding project');
+  console.log('Creating project');
   sql.addProject(
     req.body.title,
     req.body.description,
@@ -54,13 +60,13 @@ router.post('/projects/create', function(req, res) {
 });
 
 router.post('/projects', function(req, res) {
-  console.log('get project');
+  console.log('Get project');
   sql.getUser(req.body.employer, res);
 });
 
 // freelancer, price, created, project
 router.post('/bids/create', function(req, res) {
-  console.log('Adding bid');
+  console.log('Create bid');
   sql.addBid(
     req.body.freelancer,
     req.body.price,
@@ -71,13 +77,13 @@ router.post('/bids/create', function(req, res) {
 });
 
 router.post('/bids', function(req, res) {
-  console.log('get bid');
+  console.log('Get bid');
   sql.getUser(req.body.id, res);
 });
 
 router.post('/bids/average', function(req, res) {
-  console.log('average bid');
-  sql.getAvgBid(req.body.project, res);
+  console.log('Get average bid');
+  sql.calculateAvgBid(req.body.project, res);
 });
 
 module.exports = router;
