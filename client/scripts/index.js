@@ -5,9 +5,13 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import 'element-theme-default';
-import reducers from './reducers';
+import reducers, { initialState } from './reducers';
 
-const store = createStore(reducers, {}, applyMiddleware(reduxThunk)); //
+const store = createStore(
+  reducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(reduxThunk)
+); //
 
 render(
   <Provider store={store}>

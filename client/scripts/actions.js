@@ -1,23 +1,29 @@
 import axios from 'axios';
 import { SET_USER, SET_OPEN_PROJECTS } from './types';
 
-export const signin = (requestBody) => (dispatch) => {
-  return axios.post('http://localhost:3000/users/signin', requestBody).then((res) => {
-    const data = res.data;
-    dispatch({
-      type: SET_USER,
-      payload: data
-    });
+export const signin = (form) => (dispatch) => {
+  return axios.post('http://localhost:3000/users/signin', form).then((res) => {
+    console.log(form);
+    console.log(res);
+    if (res.status === 200) {
+      dispatch({
+        type: SET_USER,
+        payload: res.data
+      });
+    }
+
   })
 }
 
-export const signup = (requestBody) => (dispatch) => {
-  return axios.post('http://localhost:3000/users/signup', requestBody).then((res) => {
-    const data = res.data;
-    dispatch({
-      type: SET_USER,
-      payload: data
-    });
+export const signup = (form) => (dispatch) => {
+  console.log(form);
+  return axios.post('http://localhost:3000/users/signup', form).then((res) => {
+    if (res.status === 201) {
+      dispatch({
+        type: SET_USER,
+        payload: form
+      });
+    }
   })
 }
 

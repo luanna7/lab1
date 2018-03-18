@@ -6,6 +6,7 @@ var sql = require('../mysql.js');
 // Signup: name, email, password, skills, aboutMe, phone, profileImage
 router.post('/users/signup', function(req, res) {
   console.log('Signup user');
+  console.log(req.body);
   sql.addUser(
     req.body.name,
     req.body.email,

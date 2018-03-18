@@ -5,13 +5,32 @@ import { connect } from 'react-redux';
 import { signin } from '../actions';
 
 class Signin extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      form: {
+        password: '',
+        email: ''
+      }
+    }
+    this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  onInputChange = (key, value) => {
+    this.setState({
+      form: Object.assign(this.state.form, { [key]: value })
+    });
+  }
+
   render(){
     const { onButtonClick } = this.props;
+    const { email, password } = this.state.form;
+    const form = this.state.form;
     return (
       <div>
-        <Input />
-        <Input />
-        <Button onClick={onButtonClick}>Sign in</Button>
+        <Input placeholder="email" prepend="email" onChange={(e) => this.onInputChange('email', e)} value={email}></Input>
+        <Input placeholder="password" prepend="password" onChange={(e) => this.onInputChange('password', e)} value={password}></Input>
+        <Button onClick={() => onButtonClick(form)}>Sign in</Button>
       </div>
     )
   }
@@ -19,7 +38,7 @@ class Signin extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   dispatch,
-  onButtonClick: () => dispatch(signin({ body: 'test' })),
+  onButtonClick: (form) => dispatch(signin(form))
 });
 
 export default connect(null, mapDispatchToProps)(Signin);

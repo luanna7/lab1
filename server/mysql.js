@@ -1,5 +1,43 @@
 var mysql = require('mysql');
 
+const createUsersTableQuery = `
+CREATE TABLE IF NOT EXISTS USERS (
+	Id INT NOT NULL,
+	name VARCHAR(20) NOT NULL,
+	email VARCHAR(20) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	skills VARCHAR(255),
+	aboutMe VARCHAR(255),
+	phone CHAR(10),
+  profileImage VARCHAR(255),
+	PRIMARY KEY (email)
+)
+`;
+
+const createProjectsTableQuery = `
+CREATE TABLE IF NOT EXISTS PROJECTS (
+	Id INT(11) NOT NULL AUTO_INCREMENT,
+	title VARCHAR(20) NOT NULL,
+	description VARCHAR(255) NOT NULL,
+	skillsRequired VARCHAR(255),
+	budgetRange VARCHAR(255),
+	employer VARCHAR(255) NOT NULL,
+  completeDate DATE,
+  bidId int(11),
+	PRIMARY KEY (Id)
+)
+`;
+
+const createBidsTableQuery = `
+CREATE TABLE IF NOT EXISTS bids (
+	Id INT(11) NOT NULL AUTO_INCREMENT,
+	freelancer VARCHAR(255),
+  price DECIMAL(18,2),
+  CREATED DATE,
+  PROJECT VARCHAR(255),
+	PRIMARY KEY (Id)
+)
+`;
 /**
  * Create mysql connection pooling
  */
@@ -10,6 +48,31 @@ var sql = mysql.createPool({
   password: 'root',
   port: 8889,
   database: 'mydb'
+});
+
+sql.getConnection(function(err, connection) {
+  if (err) throw err;
+  console.log("Connected!");
+  connection.query("CREATE DATABASE IF NOT EXISTS mydb", function (err, result) {
+    if (err) throw err;
+    console.log("Database created");
+  });
+  connection.query(createUsersTableQuery, function (err, result) {
+    if (err) throw err;
+    console.log("users table created");
+  });
+  connection.query(createProjectsTableQuery, function (err, result) {
+    if (err) throw err;
+    console.log("projects table created");
+  });
+  connection.query(createBidsTableQuery, function (err, result) {
+    if (err) throw err;
+   console.log("bids table created");
+ });
+ connection.query(createBidsTableQuery, function (err, result) {
+   if (err) throw err;
+  console.log("bids table created");
+})
 });
 
 const users = 'USERS';
@@ -202,7 +265,7 @@ exports.addUser = function(
         [name, email, password, skills, aboutMe, phone, profileImage],
         function(err, results) {
           connection.release();
-          if (!err) {
+					if (!err) {
             console.log('User inserted');
             res.status(201).send('User inserted');
           } else {
