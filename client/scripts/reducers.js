@@ -7,6 +7,9 @@ export const initialState = {
   email: '',
   password: '',
   name: '',
+  skills: '',
+  aboutMe: '',
+  phone: '',
   openProjects: []
 };
 

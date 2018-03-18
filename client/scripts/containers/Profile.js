@@ -6,8 +6,8 @@ import { editProfile } from '../actions';
 
 class Profile extends Component {
   constructor(props) {
-    super();
-    const { updateProfile, email, name, phone, aboutMe, skills } = this.props;
+    super(props);
+    const { email, name, phone, aboutMe, skills } = props;
     this.state = {
       form: {
         email,
@@ -16,27 +16,29 @@ class Profile extends Component {
         aboutMe,
         skills
       }
-    }
+    };
   }
 
-  onInputChange => (key, value) {
+  onInputChange = (key, value) => {
     this.setState({
       form: Object.assign(this.state.form, { [key]: value })
     });
   }
 
   render(){
-    const { updateProfile, email, name, phone, aboutMe, skills } = this.state.form;
+    const { email, name, phone, aboutMe, skills } = this.state.form;
+    const { form } = this.state;
+    const { onButtonClick } = this.props;
     return (
       <div>
         <p>Welcome, {name}</p>
-        <p><Input placeholder={email} prepend="Email" onChange={this.onInputChange('email')} value={email}/></p>
-        <p><Input placeholder={phone} prepend="Phone Number" onChange={this.onInputChange('phone')} value={phone} /></p>
+        <div><Input placeholder={email} prepend="Email" onChange={(e) => this.onInputChange('email', e)} value={email}/></div>
+        <div><Input placeholder={phone} prepend="Phone Number" onChange={(e) => this.onInputChange('phone', e)} value={phone} /></div>
         <p>About Me</p>
-        <p> <Input type="textarea" autosize={true} placeholder={aboutMe} onChange={this.onInputChange('aboutMe')} value={aboutMe}/></p>
+        <div> <Input type="textarea" autosize={true} placeholder={aboutMe} onChange={(e) => this.onInputChange('aboutMe', e)} value={aboutMe}/></div>
         <p>My skills</p>
-        <p> <Input type="textarea" autosize={true} placeholder={skills} onChange={this.onInputChange('skills')} value={skills}/></p>
-        <Button updateProfile={this.props.onButtonClick}>Update</Button>
+        <div> <Input type="textarea" autosize={true} placeholder={skills} onChange={(e) => this.onInputChange('skills', e)} value={skills}/></div>
+        <Button onClick={() => onButtonClick(form)}>Update</Button>
       </div>
     )
   }
@@ -51,7 +53,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch,
   onButtonClick: (form) => dispatch(editProfile(form)),
 });
 

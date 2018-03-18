@@ -7,18 +7,18 @@ import { postProject } from '../actions';
 class PostProject extends Component {
   constructor(props) {
     super();
-    const { updateProfile, email, name, phone, aboutMe, skills } = this.props;
     this.state = {
       form: {
-        title,
-        description,
-        skills,
-        budgetRange
+        title: '',
+        description: '',
+        skills: '',
+        budgetRange: ''
       }
-    }
+    };
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
-  onInputChange => (key, value) {
+  onInputChange = (key, value) => {
     this.setState({
       form: Object.assign(this.state.form, { [key]: value })
     });
@@ -26,24 +26,25 @@ class PostProject extends Component {
 
   render(){
     const { title, description, skills, budgetRange } = this.state.form;
+    const { form } = this.state;
+    const { onButtonClick } = this.props;
     return (
       <div>
         <h3>Post a Project</h3>
-        <p><Input placeholder="title" prepend="Title" onChange={this.onInputChange('title')} value={title}/></p>
+        <div><Input placeholder="title" prepend="Title" onChange={(e) => this.onInputChange('title', e)} value={title}/></div>
         <p>Description</p>
-        <p> <Input type="textarea" autosize={true} placeholder={description} onChange={this.onInputChange('description')} value={title}/></p>
-        <p>skills</p>
-        <p> <Input type="textarea" autosize={true} placeholder={skills} onChange={this.onInputChange('skills')} value={skills}/></p>
-        <p><Input placeholder="budgetRange" prepend="budgetRange" onChange={this.onInputChange('budgetRange')} value={budgetRange}/></p>
-        <Button updateProfile={this.props.onButtonClick(this.state.form)}>Post Poject</Button>
+        <div> <Input type="textarea" autosize={true} placeholder={description} onChange={(e) => this.onInputChange('description', e)} value={description}/></div>
+        <p>skills required</p>
+        <div> <Input type="textarea" autosize={true} placeholder={skills} onChange={(e) => this.onInputChange('skills', e)} value={skills}/></div>
+        <div><Input placeholder="budgetRange" prepend="budgetRange" onChange={(e) => this.onInputChange('budgetRange', e)} value={budgetRange}/></div>
+        <Button onClick={() => onButtonClick(form)}>Post Poject</Button>
       </div>
     )
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch,
-  onButtonClick: (form) => dispatch(postProject(form)),
+  onButtonClick: (form) => dispatch(postProject(form))
 });
 
-export default connect(null, mapDispatchToProps)(Signin);
+export default connect(null, mapDispatchToProps)(PostProject);

@@ -6,6 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import 'element-theme-default';
 import reducers, { initialState } from './reducers';
+import './styles.css';
 
 const store = createStore(
   reducers,

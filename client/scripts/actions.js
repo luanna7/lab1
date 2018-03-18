@@ -11,7 +11,6 @@ export const signin = (form) => (dispatch) => {
         payload: res.data
       });
     }
-
   })
 }
 
@@ -27,21 +26,32 @@ export const signup = (form) => (dispatch) => {
   })
 }
 
-export const editProfile = (requestBody) => (dispatch) => {
+export const editProfile = (form) => (dispatch) => {
+  const updateForm = {
+    ...form,
+    name: 'rockcs'
+  }
   return axios.post('http://localhost:3000/users/update', requestBody).then((res) => {
-    const data = res.data;
-    dispatch({
-      type: SET_USER,
-      payload: data
-    });
+    if (res.status === 202) {
+      dispatch({
+        type: SET_USER,
+        payload: data
+      });
+    }
   })
 }
 
-export const postProject = (requestBody) => (dispatch) => {
-  return axios.post('http://localhost:3000/projects/create', requestBody);
+export const postProject = (form) => (dispatch) => {
+  const requestForm = {
+    ...form,
+    employer: '',
+    completeDate: '',
+    bidId: '',
+  };
+  return axios.post('http://localhost:3000/projects/create', requestForm);
 }
 
-export const getOpenProjects = () => dispatch => {
+export const getOpenProjects = () => (dispatch) => {
   return axios.get('http://localhost:3000/projects').then((res) => {
     const data = res.data;
     dispatch({

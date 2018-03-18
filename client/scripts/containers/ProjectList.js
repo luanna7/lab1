@@ -12,14 +12,7 @@ class ProjectList extends Component {
   render(){
     const { projects, onButtonClick, name } = this.props;
     return (
-      projects.length ?
-      {projects.map((project) => (
-        <div>
-          <p>{project.title}</p>
-          <p>{project.employer}</p>
-          <button onClick={onButtonClick(name)}>Bid</button>
-        </div>
-      ))} : <div>No Projects Available</div>
+      <div>Project List</div>
     );
   }
 }
@@ -31,8 +24,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatch,
-  customer:
   onButtonClick: (freelancer) => dispatch(createBid(freelancer)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);
