@@ -2,14 +2,16 @@ var express = require('express');
 // var crypto = require('crypto');
 var router = express.Router();
 var sql = require('../mysql.js');
+var bcrypt = require('bcryptjs');
 
 // Signup: name, email, password, skills, aboutMe, phone, profileImage
 router.post('/users/signup', function(req, res) {
+  hashedPw = bcrypt.hashSync(req.body.password, 10);
   console.log('Signup user');
   sql.addUser(
     req.body.name,
     req.body.email,
-    req.body.password,
+    hashedPw,
     req.body.skills,
     req.body.aboutMe,
     req.body.phone,

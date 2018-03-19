@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var bcrypt = require('bcryptjs');
 
 const createUsersTableQuery = `
 CREATE TABLE IF NOT EXISTS USERS (
@@ -153,7 +154,8 @@ exports.signIn = function(email, password, res) {
       console.log('Database connected');
       connection.query(selectUser, [email], function(err, results) {
         connection.release();
-        if (!err && results[0].password == password) {
+        var IsValid = bcrypt.compareSync(password, results[0].password);
+        if (!err && IsValid) {
           console.log(results[0]);
           res.status(200).send(results[0]);
         } else {
