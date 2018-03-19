@@ -1,4 +1,4 @@
-# lab1
+# lab1-freelancer-app
 To run this project:
 
 1. Clone directory
