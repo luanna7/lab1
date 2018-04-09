@@ -1,8 +1,17 @@
 var express = require('express');
 // var crypto = require('crypto');
 var router = express.Router();
+
 var sql = require('../mysql.js');
 var bcrypt = require('bcryptjs');
+
+var mongoose = require('mongoose');
+mongoose.connect(
+  'mongodb://jihenglu:password@ds239359.mlab.com:39359/freelancer'
+); //pass in the address of the mlab instance we just created
+
+require('../models/Users');
+var User = mongoose.model('users');
 
 // Signup: name, email, password, skills, aboutMe, phone, profileImage
 router.post('/users/signup', function(req, res) {
@@ -18,6 +27,18 @@ router.post('/users/signup', function(req, res) {
     req.body.profileImage,
     res
   );
+  User.findOne({ email: req.body.email }).then(existingUser => {
+    if (existingUser) {
+      // we already have a record of with given email
+    } else {
+      // we don't have a record, create a new one
+      new User({
+        email: req.body.email,
+        name: req.body.name,
+        password: hashedPw
+      }).save();
+    }
+  });
 });
 
 // Signin: email, password
