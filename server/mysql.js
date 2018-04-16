@@ -54,7 +54,7 @@ var sql = mysql.createPool({
 sql.getConnection(function(err, connection) {
   if (err) throw err;
   console.log('Connected!');
-  connection.query('CREATE DATABASE IF NOT EXISTS mydb', function(err, result) {
+  connection.query('CREATE DATABASE IF NOT EXISTS anna', function(err, result) {
     if (err) throw err;
     console.log('Database created');
   });

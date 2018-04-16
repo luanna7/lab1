@@ -1,0 +1,14 @@
+{
+  "name": "lab2",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon main.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  }
+}

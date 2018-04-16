@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  GET_USER_INFO,
   SET_USER,
   SET_OPEN_PROJECTS,
   SET_MY_POST,
@@ -21,10 +22,21 @@ export const signin = form => dispatch => {
 
 export const signup = form => dispatch => {
   return axios.post('http://localhost:3000/users/signup', form).then(res => {
-    if (res.status === 201) {
+    if (res.status === 200) {
       dispatch({
         type: SET_USER,
         payload: form
+      });
+    }
+  });
+};
+
+export const getProfile = email => dispatch => {
+  return axios.post('http://localhost:3000/users/info', {email}).then(res => {
+    if (res.status === 200) {
+      dispatch({
+        type: GET_USER_INFO,
+        payload: res.data
       });
     }
   });

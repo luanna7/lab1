@@ -6,7 +6,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
-var router = require('./routes/users.js');
+var UserRouter = require('./routes/users.js');
+var ProjectRouter = require('./routes/project.js');
 
 // mongoose.connect(
 //   'mongodb://jihenglu:password@ds239359.mlab.com:39359/freelancer'
@@ -27,7 +28,8 @@ app.use(function(req, res, next) {
   );
   next();
 });
-app.use(router);
+app.use(UserRouter);
+app.use(ProjectRouter);
 app.get('/', function(req, res) {
   res.sendfile('./public/index.html');
 });

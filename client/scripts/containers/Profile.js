@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { Button, Input } from 'element-react';
 import { connect } from 'react-redux';
-import { editProfile } from '../actions';
+import { getProfile, editProfile } from '../actions';
 
 class Profile extends Component {
   constructor(props) {
@@ -19,6 +19,25 @@ class Profile extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.getUserInfo(this.props.email);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.phone != this.props.phone
+      || nextProps.aboutMe != this.props.aboutMe
+      || nextProps.skills != this.props.skills) {
+      this.setState({
+        form: {
+          ...this.state.form,
+          phone: nextProps.phone,
+          aboutMe: nextProps.aboutMe,
+          skills: nextProps.skills,
+        }
+      })
+    }
+  }
+
   onInputChange = (key, value) => {
     this.setState({
       form: Object.assign(this.state.form, { [key]: value })
@@ -32,7 +51,7 @@ class Profile extends Component {
     return (
       <div>
         <h2>Welcome, {name}</h2>
-        <div><Input placeholder={email} prepend="Email" onChange={(e) => this.onInputChange('email', e)} value={email}/></div>
+        <div><Input disabled placeholder={email} prepend="Email" onChange={(e) => this.onInputChange('email', e)} value={email}/></div>
         <div><Input placeholder={phone} prepend="Phone Number" onChange={(e) => this.onInputChange('phone', e)} value={phone} /></div>
         <p>About Me</p>
         <div> <Input type="textarea" autosize={true} placeholder={aboutMe} onChange={(e) => this.onInputChange('aboutMe', e)} value={aboutMe}/></div>
@@ -54,6 +73,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onButtonClick: (form) => dispatch(editProfile(form)),
+  getUserInfo: (email) => dispatch(getProfile(email))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

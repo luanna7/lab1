@@ -25,11 +25,11 @@ class ProjectItem extends Component {
         <p>Title: {project.title}</p>
         <p>Employer: {project.employer}</p>
         <p>Desciption: {project.description}</p>
-        <p>Skills Required: {project.skillsRequired}</p>
+        <p>Skills Required: {project.skills}</p>
         <p>Budget Range: {project.budgetRange}</p>
         <h4>Bid on this project?</h4>
         <Input placeholder="your bid price" prepend="bid price" onChange={(e) => this.onInputChange(e)} value={bidPrice}></Input>
-        <Button onClick={() => onButtonClick(email, bidPrice, project.Id)}>Bid</Button>
+        <Button onClick={() => onButtonClick(email, bidPrice, project._id)}>Bid</Button>
       </div>
     );
   }
