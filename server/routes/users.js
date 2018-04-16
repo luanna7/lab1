@@ -1,15 +1,13 @@
 var express = require('express');
 // var crypto = require('crypto');
 var router = express.Router();
-var config = '../config';
+var config = require('../config');
 
 var sql = require('../mysql.js');
 var bcrypt = require('bcryptjs');
 
 var mongoose = require('mongoose');
-mongoose.connect(
-  config.mongodbUrl
-); //pass in the address of the mlab instance we just created
+mongoose.connect(config.mongodbUrl); //pass in the address of the mlab instance we just created
 
 require('../models/Users');
 var User = mongoose.model('users');
@@ -42,7 +40,7 @@ router.post('/users/signup', function(req, res) {
         password: hashedPw,
         skills: '',
         aboutMe: '',
-        phone: '',
+        phone: ''
       }).save();
       res.status(200).send('Created successfully');
     }
@@ -82,20 +80,23 @@ router.post('/users/update', function(req, res) {
   //   req.body.profileImage,
   //   res
   // );
-  User.update({
-    email: req.body.email
-  },{
-    skills: req.body.skills,
-    aboutMe: req.body.aboutMe,
-    phone: req.body.phone,
-  }).then(updateSuccess => {
-    if(updateSuccess) {
+  User.update(
+    {
+      email: req.body.email
+    },
+    {
+      skills: req.body.skills,
+      aboutMe: req.body.aboutMe,
+      phone: req.body.phone
+    }
+  ).then(updateSuccess => {
+    if (updateSuccess) {
       res.status(200).send('Update User Info Successfully');
     } else {
       // Update error
       res.status(400).send('Update Error not existed');
     }
-  })
+  });
 });
 
 // Get User Info
@@ -110,7 +111,7 @@ router.post('/users/info', function(req, res) {
         name: existingUser.name,
         phone: existingUser.phone,
         aboutMe: existingUser.aboutMe,
-        skills: existingUser.skills,
+        skills: existingUser.skills
       });
     } else {
       // user not existed
